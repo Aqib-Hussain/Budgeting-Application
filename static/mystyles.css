@@ -1,0 +1,91 @@
+body{
+    background-color: #e5e5e5;
+}
+
+.mobileWarning {
+    display: none;
+}
+
+nav {
+    /*background-color:rgb(46, 48, 46) !important;*/
+    background-color: #444444 !important;
+}
+
+.navbar-item{
+    color:white !important;
+}
+
+.navbar-item:hover{
+    background-color: transparent !important;
+}
+
+.tabLinks:hover{
+    background-color: rgb(101, 101, 101) !important;
+}
+
+#homepageInfo{
+    position: absolute;
+    left:150px;
+    top:300px;
+}
+
+.card{
+    position:fixed;
+    top:300px;
+    right:160px;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center;
+    width:400px !important;
+    height: 300px; !important;
+}
+
+#signUpFormComponent{
+    display:flex;
+    flex-direction: row !important;
+}
+
+#signUpLabels{
+    display:flex;
+    flex-direction: column;
+}
+
+#signUpInputs{
+    display:flex;
+    flex-direction: column;
+    margin-left:20px;
+}
+
+.signUpField{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+label{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#signUpButton{
+    width:100%;
+    margin-top:20px;
+}
+
+#errorResponse{
+    color:red;
+    font-size:15px;
+    margin-left:40px;
+}
+
+@media only screen and (max-width: 1023px) {
+    .mobileWarning {
+        position: absolute;
+        display: block;
+        height: 100%;
+        width: 100%;
+        font-size: 100px;
+        background-color: black;
+        color: white;
+        z-index:200;
+    }
+}

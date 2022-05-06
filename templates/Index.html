@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>JABA | Just Another Budgeting Application</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="../static/mystyles.css">
+</head>
+
+<body>
+<div class="mobileWarning">
+    THIS WEBSITE IS ONLY TO BE USED ON DESKTOP. PLEASE EITHER MAXIMISE YOUR WINDOW OR SWITCH TO A DESKTOP OR LAPTOP
+</div>
+
+<!-- Navigation bar-->
+<nav class="navbar is-light">
+    <div class="navbar-menu">
+        <div class="navbar-start">
+            <a href="/Goals.html" class="navbar-item tabLinks">
+                Goals
+            </a>
+            <a class="navbar-item tabLinks">
+                Markets
+            </a>
+            <a class="navbar-item tabLinks">
+                Valuations
+            </a>
+        </div>
+
+        <div class="navbar-center">
+            <a style=" display:flex; flex-direction:column; color:white;" class="navbar-item" href="/">
+                <strong style="font-size:20px">JABA</strong>
+                <p style="font-size: 10px;">Just Another Budgeting Application</p>
+            </a>
+        </div>
+
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="buttons">
+                    <a class="button is-">
+                        Login
+                    </a>
+                    <a class="button is-dark">
+                        Sign up
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div id="homepageInfo">
+    <h3 class="title is-3">Help Keep Your Finances on Track!</h3>
+    <p>Our budgeting app</p>
+</div>
+
+<!--Sign up Component-->
+<div class="card">
+    <div class="card-content">
+        <div class="content">
+            <div id="signUpFormComponent">
+                <div id="signUpLabels">
+                    <label>Email:</label>
+                    <label>Password:</label>
+                    <label>Confirm Password:</label>
+                </div>
+                <form action="{{ url_for('signUpUser') }}" method="post">
+                    <div id="signUpInputs">
+                        <input class="signUpField" type="email" required name="email"/>
+                        <input class="signUpField" type="password" required name="password"/>
+                        <input class="signUpField" type="password" required name="confirmPassword"/>
+                    </div>
+
+            </div>
+            <button id="signUpButton" type="submit" class="button is-dark">Submit</button>
+            </form>
+        </div>
+        <p id="errorResponse" style="color:red; font-size:15px;">{{ error }}</p>
+    </div>
+</div>
+
+<!-- footer -->
+    <footer class="footer bg-secondary py-5">
+      <div class="container grid">
+        <div>
+          <h1>JABA</h1>
+          <p>Copyright &copy; 2022</p>
+        </div>
+        <div class="socialmedia text-center">
+          <ul>
+          <!-- <a href="#"><i class="fab fa-twitter fa-2x"></i></a> -->
+          <!-- <a href="#"><i class="fab fa-instagram fa-2x"></i></a> -->
+          <!-- <a href="#"><i class="fab fa-facebook fa-2x"></i></a> -->
+          </ul>
+        </div>
+      </div>
+    </footer>
+</body>
+</html>
