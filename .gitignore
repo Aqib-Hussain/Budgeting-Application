@@ -2,3 +2,4 @@ venv
 requirements.txt
 .idea
 __pycache__
+FinanceDatabase.db
