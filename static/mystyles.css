@@ -1,4 +1,4 @@
-body{
+html{
     background-color: #e5e5e5;
 }
 
@@ -23,13 +23,17 @@ nav {
     background-color: rgb(101, 101, 101) !important;
 }
 
+#activeLink{
+    background-color: rgb(101, 101, 101) !important;
+}
+
 #homepageInfo{
     position: absolute;
     left:150px;
     top:300px;
 }
 
-.card{
+.signUpCard{
     position:fixed;
     top:300px;
     right:160px;
@@ -75,6 +79,59 @@ label{
     color:red;
     font-size:15px;
     margin-left:40px;
+}
+
+.loginCard{
+    position:fixed;
+    top:calc(50% - 150px);
+    left:calc(50% - 200px);
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center;
+    width:400px !important;
+    height: 300px; !important;
+}
+
+#goalForm{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#goalForm > button{
+    margin-top:15px;
+}
+
+#goals{
+    display:flex;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+}
+
+.goal{
+    border: 2px solid black;
+    border-radius: 15px;
+    display:flex;
+    flex-direction: column;
+    width:400px;
+    background-color:whitesmoke;
+    margin-left: 100px;
+    margin-right:100px;
+    margin-top:30px;
+}
+
+.goalButtons > form {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-top:30px;
+}
+
+.goalButtons > form > button{
+    width:200px;
+    border-radius: 15px !important;
 }
 
 @media only screen and (max-width: 1023px) {

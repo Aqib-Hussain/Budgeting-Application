@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>JABA | Just Another Budgeting Application</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="../static/mystyles.css">
+</head>
+
+<body>
+<div class="mobileWarning">
+    THIS WEBSITE IS ONLY TO BE USED ON DESKTOP. PLEASE EITHER MAXIMISE YOUR WINDOW OR SWITCH TO A DESKTOP OR LAPTOP
+</div>
+
+<div class="card loginCard">
+    <h2 style="font-size: 20px; position:fixed; margin-top:7px;"><strong>Login</strong></h2>
+    <div class="card-content">
+        <div class="content">
+            <div id="signUpFormComponent">
+                <div id="signUpLabels">
+                    <label style="margin-top:30px;">Email:</label>
+                    <label>Password:</label>
+                </div>
+                <form action="{{ url_for("loginUser") }}" method="post">
+                    <div id="signUpInputs">
+                        <input style="margin-top:30px;" class="signUpField" type="email" required name="email"/>
+                        <input class="signUpField" type="password" required name="password"/>
+                    </div>
+            </div>
+            <button id="signUpButton" type="submit" class="button is-dark">Login</button>
+            </form>
+        </div>
+        <p id="errorResponse" style="color:red; font-size:15px;">{{ error }}</p>
+    </div>
+</div>
+
+</body>
+</html>

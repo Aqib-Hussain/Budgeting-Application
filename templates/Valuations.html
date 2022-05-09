@@ -5,7 +5,7 @@
     <!-- get username from profile here -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>JABA | Your Goals</title>
+    <title>JABA | Your Valuations</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="../static/mystyles.css">
 
@@ -19,13 +19,13 @@
 <nav class="navbar is-light">
     <div class="navbar-menu">
         <div class="navbar-start">
-            <a id="activeLink" href="/Goals.html" class="navbar-item tabLinks">
+            <a href="/Goals.html" class="navbar-item tabLinks">
                 Goals
             </a>
             <a class="navbar-item tabLinks">
                 Markets
             </a>
-            <a class="navbar-item tabLinks">
+            <a id="activeLink" class="navbar-item tabLinks">
                 Valuations
             </a>
         </div>
@@ -72,9 +72,9 @@
 
 {% if editButtonPressed == True %}
     <div id="editGoalsPopUp"
-         style="position:fixed; display:flex; justify-content:center; width:350px; left:calc(50% - 175px); margin-top:20px; z-index: 100"
+         style="position:absolute; display:flex; justify-content:center; width:350px; left:calc(50% - 175px); margin-top:20px; z-index: 100"
          class="card">
-        <h2 style="font-size: 20px; position:absolute; margin-top:7px;">
+        <h2 style="font-size: 20px; position:fixed; margin-top:7px;">
             <strong>Editing {{ specificGoal.goalText }}</strong></h2>
         <form action="{{ url_for("deleteOrEditGoal") }}" method="post">
             <button name="closeEditButton"

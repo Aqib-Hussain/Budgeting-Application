@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- get username from profile here -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>JABA | Your Markets</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="../static/mystyles.css">
+
+</head>
+<body>
+<div class="mobileWarning">
+    THIS WEBSITE IS ONLY TO BE USED ON DESKTOP. PLEASE EITHER MAXIMISE YOUR WINDOW OR SWITCH TO A DESKTOP OR LAPTOP
+</div>
+
+<!-- Navigation bar-->
+<nav class="navbar is-light">
+    <div class="navbar-menu">
+        <div class="navbar-start">
+            <a href="/Goals.html" class="navbar-item tabLinks">
+                Goals
+            </a>
+            <a id="activeLink" class="navbar-item tabLinks">
+                Markets
+            </a>
+            <a class="navbar-item tabLinks">
+                Valuations
+            </a>
+        </div>
+
+        <div class="navbar-center">
+            <a style=" display:flex; flex-direction:column; color:white;" class="navbar-item" href="/">
+                <strong style="font-size:20px">JABA</strong>
+                <p style="font-size: 10px;">Just Another Budgeting Application</p>
+            </a>
+        </div>
+
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="buttons">
+                    <a class="button is-">
+                        Login
+                    </a>
+                    <a class="button is-dark">
+                        Sign up
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+<h2 class="title is-2" style="text-align: center; margin-top:30px; margin-bottom:50px;">View Stock Closing Prices</h2>
+
+<p style="text-align: center; margin-bottom:10px;" class="subtitle is-5">Enter a Stock Symbol (ticker) below and view the stock's closing prices over a time period.</p>
+
+<form id="goalForm" action="{{ url_for('viewMarkets') }}" method="post">
+    <div>
+        <label style="margin-right:20px;">Stock Symbol/Ticker
+            <input value="{{ stockName }}" type="text" required name="stockName" placeholder="AAPL"/>
+        </label>
+        <label style="margin-right:20px;">Date Range From:
+            <input value="{{ dateFrom }}" name="dateFrom" type="date" required>
+        </label>
+        <label style="margin-right:20px;">Date Range To:
+            <input value="{{ dateTo }}" name="dateTo" type="date" required>
+        </label>
+    </div>
+    <button type="submit" class="button is-dark">Generate Graph</button>
+</form>
+
+{% if generateGraph == True %}
+<img style="width:60%; height:40%; position:fixed; margin-left:calc(50% - 315px); margin-top:30px;" class="fit-picture"
+     src="static/images/stockClosingPriceGraph.jpg"
+     alt="{{ "graph showing "+stockName+"'s closing prices" }}">
+{%  endif %}
+
+
+</body>
+</html>
