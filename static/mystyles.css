@@ -1,5 +1,10 @@
-html{
+html {
     background-color: #e5e5e5;
+    height: 100%;
+}
+
+body {
+    height: 100% !important;
 }
 
 .mobileWarning {
@@ -11,127 +16,138 @@ nav {
     background-color: #444444 !important;
 }
 
-.navbar-item{
-    color:white !important;
+.navbar-item {
+    color: white !important;
 }
 
-.navbar-item:hover{
+.navbar-item:hover {
     background-color: transparent !important;
 }
 
-.tabLinks:hover{
+.tabLinks:hover {
     background-color: rgb(101, 101, 101) !important;
 }
 
-#activeLink{
+#activeLink {
     background-color: rgb(101, 101, 101) !important;
 }
 
-#homepageInfo{
+#homepageInfo {
     position: absolute;
-    left:150px;
-    top:300px;
+    left: 150px;
+    top: 300px;
 }
 
-.signUpCard{
-    position:fixed;
-    top:300px;
-    right:160px;
+.signUpCard {
+    position: fixed;
+    top: 300px;
+    right: 160px;
     display: flex !important;
     flex-direction: column !important;
     align-items: center;
-    width:400px !important;
-    height: 300px; !important;
+    width: 400px !important;
+    height: 300px;
+!important;
 }
 
-#signUpFormComponent{
-    display:flex;
+#signUpFormComponent {
+    display: flex;
     flex-direction: row !important;
 }
 
-#signUpLabels{
-    display:flex;
+#signUpLabels {
+    display: flex;
     flex-direction: column;
 }
 
-#signUpInputs{
-    display:flex;
+#signUpInputs {
+    display: flex;
     flex-direction: column;
-    margin-left:20px;
+    margin-left: 20px;
 }
 
-.signUpField{
+.signUpField {
     margin-top: 15px;
     margin-bottom: 15px;
 }
 
-label{
+label {
     margin-top: 15px;
     margin-bottom: 15px;
 }
 
-#signUpButton{
-    width:100%;
-    margin-top:20px;
+#signUpButton {
+    width: 100%;
+    margin-top: 20px;
 }
 
-#errorResponse{
-    color:red;
-    font-size:15px;
-    margin-left:40px;
+#errorResponse {
+    color: red;
+    font-size: 15px;
+    margin-left: 40px;
 }
 
-.loginCard{
-    position:fixed;
-    top:calc(50% - 150px);
-    left:calc(50% - 200px);
+.loginCard {
+    position: fixed;
+    top: calc(50% - 150px);
+    left: calc(50% - 200px);
     display: flex !important;
     flex-direction: column !important;
     align-items: center;
-    width:400px !important;
-    height: 300px; !important;
+    width: 400px !important;
+    height: 300px;
+!important;
 }
 
-#goalForm{
-    display:flex;
+#goalForm {
+    display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#goalForm > button{
-    margin-top:15px;
+#goalForm > button {
+    margin-top: 15px;
 }
 
-#goals{
-    display:flex;
+#goals {
+    display: flex;
     margin-top: 30px;
     flex-wrap: wrap;
     justify-content: space-around;
 
 }
 
-.goal{
+.goal {
     border: 2px solid black;
     border-radius: 15px;
-    display:flex;
+    display: flex;
     flex-direction: column;
-    width:400px;
-    background-color:whitesmoke;
+    width: 400px;
+    height:507.5px;
+    background-color: whitesmoke;
     margin-left: 100px;
-    margin-right:100px;
-    margin-top:30px;
+    margin-right: 100px;
+    margin-top: 30px;
 }
 
 .goalButtons > form {
-    display:flex;
+    display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    margin-top:30px;
+    margin-top: 30px;
 }
 
-.goalButtons > form > button{
-    width:200px;
+.goalButtons > form > button {
+    width: 200px;
     border-radius: 15px !important;
+}
+
+.valuationsCard {
+    border-radius: 15px;
+    /*height: 1000px;*/
+    width: 700px;
+    position: relative;
+    left: calc(50% - 350px);
 }
 
 @media only screen and (max-width: 1023px) {
@@ -143,6 +159,6 @@ label{
         font-size: 100px;
         background-color: black;
         color: white;
-        z-index:200;
+        z-index: 200;
     }
 }

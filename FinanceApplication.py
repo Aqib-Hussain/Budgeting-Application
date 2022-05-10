@@ -1,9 +1,11 @@
 from flask import render_template, request, redirect, make_response
 from DB.dbHelperMethods import createUser, searchForUserByEmail, createGoal, searchForUsersGoals, deleteUserGoal, \
-    searchForIndividualGoal, updateUserGoal, updateGoalProjection
+    searchForIndividualGoal, updateUserGoal, updateGoalProjection, createValuation, searchForUserValuations, \
+    updateValuation
 from werkzeug.security import generate_password_hash, check_password_hash
 from DB import app
 from API.PolygonGraphMaker import makeGraphForStock
+from ValuationsGraphBuilder.ValuationsGraphBuilders import startBuildingCharts
 
 
 @app.route("/")
@@ -23,6 +25,8 @@ def signUpUser():
     userFound = searchForUserByEmail(email)
     if userFound is None:
         createUser(email, hashed_password)
+        newUser = searchForUserByEmail(email)
+        createValuation(newUser.id)
     else:
         return render_template('Index.html', error="This email is being used")
     return redirect('/login')
@@ -105,6 +109,26 @@ def viewMarkets():
         makeGraphForStock(stockName.upper(), dateFrom, dateTo)
         return render_template('Markets.html', generateGraph=True, stockName=stockName, dateFrom=dateFrom,
                                dateTo=dateTo)
+
+
+@app.route("/valuations", methods=['GET', 'POST'])
+def viewValuations():
+    username = request.cookies.get('userLoggedIn')
+    user = searchForUserByEmail(username)
+    valuations = searchForUserValuations(user.id)
+    if request.method == 'GET':
+        return render_template('Valuations.html', username=username, valuations=valuations)
+    else:
+        updateValuation(user.id, request.form['propertyValuesAsset'],
+                        request.form['savingsAccountsAsset'],
+                        request.form['pensionsAccountsAsset'], request.form['carsAsset'],
+                        request.form['otherAsset'],
+                        request.form['mortgagesLiability'],
+                        request.form['studentLoanLiability'], request.form['personalLoanLiability'],
+                        request.form['carLoansLiability'],
+                        request.form['otherDebtLiability'])
+        startBuildingCharts(user.id)
+        return render_template('Valuations.html', username=username, valuations=valuations, showGraphs = True)
 
 
 if __name__ == '__main__':

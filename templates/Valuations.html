@@ -19,13 +19,13 @@
 <nav class="navbar is-light">
     <div class="navbar-menu">
         <div class="navbar-start">
-            <a href="/Goals.html" class="navbar-item tabLinks">
+            <a href="/goals" class="navbar-item tabLinks">
                 Goals
             </a>
-            <a class="navbar-item tabLinks">
+            <a href="/markets" class="navbar-item tabLinks">
                 Markets
             </a>
-            <a id="activeLink" class="navbar-item tabLinks">
+            <a id="activeLink" href="/valuations" class="navbar-item tabLinks">
                 Valuations
             </a>
         </div>
@@ -40,11 +40,8 @@
         <div class="navbar-end">
             <div class="navbar-item">
                 <div class="buttons">
-                    <a class="button is-">
-                        Login
-                    </a>
-                    <a class="button is-dark">
-                        Sign up
+                    <a href="/" class="button is-">
+                        Sign Out
                     </a>
                 </div>
             </div>
@@ -53,112 +50,126 @@
 </nav>
 
 
-<h2 class="title is-2" style="text-align: center; margin-top:30px; margin-bottom:50px;">{{ username+"'s Goals" }}</h2>
+<h2 class="title is-2"
+    style="text-align: center; margin-top:30px; margin-bottom:50px;">{{ username+"'s Valuations" }}</h2>
 
-<form id="goalForm" action="{{ url_for('displayAndAddGoals') }}" method="post">
-    <div>
-        <label style="margin-right:20px;">Goal Title
-            <input type="text" required name="goalText" placeholder="Your Goal Here"/>
-        </label>
-        <label style="margin-right:20px;">Goal Number (£)
-            <input type="number" required name="goalNumber" step=".01" placeholder="0.00"/>
-        </label>
-        <label style="margin-right:20px;">Current Number (£)
-            <input type="number" required name="currentNumber" step=".01" placeholder="0.00"/>
-        </label>
-    </div>
-    <button type="submit" class="button is-dark">Add Goal</button>
-</form>
-
-{% if editButtonPressed == True %}
-    <div id="editGoalsPopUp"
-         style="position:absolute; display:flex; justify-content:center; width:350px; left:calc(50% - 175px); margin-top:20px; z-index: 100"
-         class="card">
-        <h2 style="font-size: 20px; position:fixed; margin-top:7px;">
-            <strong>Editing {{ specificGoal.goalText }}</strong></h2>
-        <form action="{{ url_for("deleteOrEditGoal") }}" method="post">
-            <button name="closeEditButton"
-                    style="position:absolute; background-color: transparent; border: none; margin-left: 300px; margin-top:3px; cursor:pointer;">
-                <strong style="color:red; font-family: 'Comic Sans MS',serif">X</strong></button>
-        </form>
+<div style="margin-bottom:10px;" class="card valuationsCard">
+    <form action="{{ url_for("viewValuations") }}" method="post">
+        <div id="dividingLine"
+             style="border-radius:15px; position:absolute; height:460px; width:2px; background-color: rgba(220,220,220,0.44); left:50%"></div>
+        <div style="background-color: lightcoral; border-top-left-radius: 15px; border-top-right-radius: 15px; display:flex; flex-direction: row;">
+            <h3 class="title is-5"
+                style="padding-top:10px; text-align: center; height:20px; width:50%;">Assets (£)</h3>
+            <h3 class="title is-5"
+                style="padding-top:10px; text-align: center; height:20px; width:50%;">Liabilities (£)</h3>
+        </div>
         <div class="card-content">
             <div class="content">
-                <div id="signUpFormComponent">
-                    <div id="signUpLabels">
-                        <label style="margin-top:30px;">Goal Title:</label>
-                        <label>Goal Number:</label>
-                        <label>Current Number:</label>
-                    </div>
-                    <form action="{{ url_for("deleteOrEditGoal") }}" method="post">
-                        <div id="signUpInputs">
-                            <input name="newGoalText" value="{{ specificGoal.goalText }}" style="margin-top:30px;"
-                                   class="signUpField"
-                                   type="text" required/>
-                            <input name="newGoalValue" value="{{ specificGoal.goalNumber }}" class="signUpField"
-                                   type="number" step="0.01"
-                                   required/>
-                            <input name="newCurrentValue" value="{{ specificGoal.currentNumber }}" class="signUpField"
+                <div style="display:flex; flex-direction: row; width:75%; margin-left:84px; text-align: center; justify-content: space-evenly">
+                    <div style="display:flex; flex-direction: column; width:50%;">
+                        <label>Property Values:
+                            <input name="propertyValuesAsset" value="{{ valuations.propertyValuesAsset }}"
                                    type="number"
-                                   step="0.01" required/>
-                        </div>
+                                   step="0.01" required>
+                        </label>
+                        <label>Savings Accounts:
+                            <input name="savingsAccountsAsset" value="{{ valuations.savingsAccountsAsset }}"
+                                   type="number" step="0.01" required>
+                        </label>
+                        <label>Pensions Accounts:
+                            <input name="pensionsAccountsAsset" value="{{ valuations.pensionsAccountsAsset }}"
+                                   type="number" step="0.01" required>
+                        </label>
+                        <label>Cars:
+                            <input name="carsAsset" value="{{ valuations.carsAsset }}" type="number" step="0.01"
+                                   required>
+                        </label>
+                        <label>Other Assets:
+                            <input name="otherAsset" value="{{ valuations.otherAsset }}" type="number" step="0.01"
+                                   required>
+                        </label>
+                    </div>
+                    <div style="display:flex; flex-direction: column; width:50%; margin-left:190px;">
+                        <label>Mortgages:
+                            <input name="mortgagesLiability" value="{{ valuations.mortgagesLiability }}"
+                                   type="number"
+                                   step="0.01" required>
+                        </label>
+                        <label>Student Loans:
+                            <input name="studentLoanLiability" value="{{ valuations.studentLoanLiability }}"
+                                   type="number" step="0.01" required>
+                        </label>
+                        <label>Personal Loans:
+                            <input name="personalLoanLiability" value="{{ valuations.personalLoanLiability }}"
+                                   type="number" step="0.01" required>
+                        </label>
+                        <label>Car Loans:
+                            <input name="carLoansLiability" value="{{ valuations.carLoansLiability }}" type="number"
+                                   step="0.01"
+                                   required>
+                        </label>
+                        <label>Other Debt:
+                            <input name="otherDebtLiability" value="{{ valuations.otherDebtLiability }}"
+                                   type="number"
+                                   step="0.01" required>
+                        </label>
+                    </div>
                 </div>
-                <button name="submitEditButton" value="{{ specificGoal.id }}"
-                        style="position:relative; margin-left:100px;" type="submit"
-                        class="button is-success">Submit
-                </button>
-                </form>
+                <div style="text-align: center" class="subtitle is-5">
+                    Total Valuation:
+                </div>
+                <p id="numberCounter" style="font-size: 30px; text-align: center;">
+                    <strong>£ {{ "%.2f"|format((valuations.propertyValuesAsset + valuations.savingsAccountsAsset + valuations.pensionsAccountsAsset + valuations.carsAsset + valuations.otherAsset) - (valuations.mortgagesLiability + valuations.studentLoanLiability + valuations.personalLoanLiability + valuations.carLoansLiability + valuations.otherDebtLiability)) }}</strong>
+                </p>
             </div>
-        </div>
-    </div>
-{% endif %}
+            <button type="submit" style="position:relative; width:100%;" class="button is-success">Calculate and
+                Generate Graphs
+            </button>
+            {% if showGraphs == True %}
+                <div style="display:flex; flex-direction: column">
+                    <img style="width:100%; height:100%; position:relative; margin-top:30px;"
+                         src="static/images/personalBarChartValuation.jpg"
+                         alt="{{ "Assets and Liabilities Breakdown by Bar Chart" }}">
 
-<div id="goals">
-    {% for goal in goals %}
-        <div class="goal">
-            <div style="background-color: lightblue; border-top-left-radius: 15px; border-top-right-radius: 15px;">
-                <h3 class="title is-5"
-                    style="text-align: center; margin-top:5px; margin-bottom:5px;">{{ goal.goalText }}</h3>
-            </div>
-            <div style="display:flex; flex-direction: row; justify-content: space-evenly; margin-top:15px;">
-                <p style="text-align: center">Current Value towards Goal: </p>
-                <p style="text-align: center">Value needed to complete Goal: </p>
-            </div>
-            <div style="display:flex; flex-direction: row; justify-content: space-evenly; margin-top:10px;">
-                <p style="font-size: 30px; text-align: center; margin-right:80px;">
-                    <strong>£ {{ goal.currentNumber }}</strong></p>
-                <p style="font-size: 30px; text-align: center; margin-right: 20px;">
-                    <strong>£ {{ goal.goalNumber }}</strong></p>
-            </div>
-            <div class="goalButtons">
-                <form action="{{ url_for('deleteOrEditGoal') }}" method="post">
-                    <button type="submit" name="deleteButton" value="{{ goal.id }}" class="button is-danger">Delete
-                        Goal
-                    </button>
-                    <button type="submit" name="editButton" value="{{ goal.id }}" class="button is-success">Edit Goal
-                    </button>
-                </form>
-            </div>
-            <form action="{{ url_for("updateProjections") }}" method="post">
-                <div style="margin-top:10px; display:flex; flex-direction: column; align-items: center">
-                    <p style="font-size: 30px; text-align: center;">
-                        <strong>Projections</strong></p>
-                    <label>Years:
-                        <input name="yearProjection" type="number" value="{{ goal.yearProjection  }}" step="1" required>
-                    </label>
-                    <label>Percentage:
-                        <input name="percentageProjection" type="number" value="{{ goal.percentageProjection }}" step="0.01" required>
-                    </label>
-                    <p>You are projected:</p>
-                    <p style="font-size: 30px; text-align: center;">
-                        <strong>£{{ "%.2f"|format((1 + (goal.percentageProjection/100)/1)**(1*goal.yearProjection)*goal.currentNumber) }}</strong></p>
-                    <button type="submit" style="border-radius: 15px; margin-bottom:10px;" name="updateGoalProjection"
-                            value="{{ goal.id }}" class="button is-success">Refresh Projected
-                    </button>
+                    <img style="width:100%; height:100%; position:relative; margin-top:10px;"
+                         src="static/images/personalAssetPieChartValuation.jpg"
+                         alt="{{ "Assets Breakdown by Pie Chart" }}">
+
+                    <img style="width:100%; height:100%; position:relative; margin-top:10px;"
+                         src="static/images/personalLiabilitiesPieChartValuation.jpg"
+                         alt="{{ "Liabilities Breakdown by Pie Chart" }}">
+
+                    <img style="width:100%; height:100%; position:relative; margin-top:10px;"
+                         src="static/images/totalAssetAndLiabilitiesPieChartValuation.jpg"
+                         alt="{{ "Assets And Liabilities Breakdown by Pie Chart" }}">
                 </div>
-            </form>
+            {% endif %}
         </div>
-    {% endfor %}
+    </form>
 </div>
+
+<!-- footer -->
+{% if showGraphs == True %}
+    <footer style="position:relative; display:flex; bottom:0; width:100%; height:7%; background-color:#353138;"
+            class="footer">
+        <div class="content has-text-left">
+            <p>
+                <strong class="has-text-white">JABA</strong>
+            </p>
+            <p class="has-text-white">Copyright &copy; 2022</p>
+        </div>
+    </footer>
+{% else %}
+    <footer style="position:fixed; display:flex; bottom:0; width:100%; height:7%; background-color:#353138;"
+            class="footer">
+        <div class="content has-text-left">
+            <p>
+                <strong class="has-text-white">JABA</strong>
+            </p>
+            <p class="has-text-white">Copyright &copy; 2022</p>
+        </div>
+    </footer>
+{% endif %}
 
 </body>
 </html>
