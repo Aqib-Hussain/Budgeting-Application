@@ -4,7 +4,7 @@ html {
 }
 
 body {
-    height: 100% !important;
+    height: 100%;
 }
 
 .mobileWarning {
@@ -33,20 +33,19 @@ nav {
 }
 
 #homepageInfo {
-    position: absolute;
-    left: 150px;
-    top: 300px;
+    text-align:center;
 }
 
 .signUpCard {
+    height: 350px;
+    z-index:200;
     position: fixed;
-    top: 300px;
-    right: 160px;
+    top: 250px;
+    right: 4%;
     display: flex !important;
     flex-direction: column !important;
     align-items: center;
     width: 400px !important;
-    height: 300px;
 !important;
 }
 

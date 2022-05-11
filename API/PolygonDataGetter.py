@@ -1,7 +1,6 @@
 import requests
 from datetime import datetime
-import matplotlib.pyplot as plt
-import seaborn as sns
+from Visualisations.BuildGraphs import buildApiCharts
 
 api_key = 'p512p655R35DNWNBbVOWenkDy2PBdAVx'
 
@@ -17,12 +16,4 @@ def makeGraphForStock(stockName, fromDate, toDate):
         date_periods.append(datetime.fromtimestamp((entry['t'] / 1000.0)))
         closing_prices.append(entry['c'])
 
-    sns.set_style("darkgrid")
-    sns.lineplot(date_periods, closing_prices)
-    sns.set(rc={'figure.figsize': (40, 40)})
-    plt.xticks(rotation=45)
-    plt.xlabel('Date')
-    plt.ylabel('Closing Price')
-    plt.title(stockName + " Closing Prices from: " + fromDate + " to: " + toDate)
-    plt.savefig('static/images/stockClosingPriceGraph.jpg',bbox_inches='tight',dpi=300)
-    plt.close()
+    buildApiCharts(date_periods, closing_prices, stockName, fromDate, toDate)

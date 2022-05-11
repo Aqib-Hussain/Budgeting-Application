@@ -1,11 +1,37 @@
-from flask import render_template, request, redirect, make_response
+from flask import render_template, request, redirect, make_response, jsonify
 from DB.dbHelperMethods import createUser, searchForUserByEmail, createGoal, searchForUsersGoals, deleteUserGoal, \
     searchForIndividualGoal, updateUserGoal, updateGoalProjection, createValuation, searchForUserValuations, \
     updateValuation
 from werkzeug.security import generate_password_hash, check_password_hash
 from DB import app
-from API.PolygonGraphMaker import makeGraphForStock
-from ValuationsGraphBuilder.ValuationsGraphBuilders import startBuildingCharts
+from API.PolygonDataGetter import makeGraphForStock
+from Visualisations.BuildGraphs import startBuildingValuationsCharts
+import jwt as jwt
+from datetime import datetime, timedelta
+import functools
+
+app.config['MY_JWT_KEY'] = "YouCanEnterJABA"
+
+
+def jwtValidate(func):
+    @functools.wraps(func)
+    def checkJwt(*args, **kwargs):
+        try:
+            if request.cookies.get('jwtToken') is not None:
+                jwtPayload = jwt.decode(request.cookies.get('jwtToken'), app.config['MY_JWT_KEY'], algorithms='HS256')
+
+                user = searchForUserByEmail(jwtPayload.get('username'))
+
+                if user is None:
+                    return render_template('Login.html', error="Please login first")
+
+                return func(*args, **kwargs)
+            else:
+                return render_template('Login.html', error="Please login first")
+        except jwt.exceptions.ExpiredSignatureError:
+            return render_template('Login.html', error="Please login again")
+
+    return checkJwt
 
 
 @app.route("/")
@@ -42,8 +68,12 @@ def loginUser():
         user = searchForUserByEmail(email)
         if user is not None:
             if check_password_hash(user.hashedPassword, password):
+                jwtToken = jwt.encode(
+                    {'username': user.email, 'exp': datetime.utcnow() + timedelta(minutes=20)},
+                    app.config['MY_JWT_KEY'])
                 response = make_response(redirect('/goals'))
                 response.set_cookie('userLoggedIn', user.email)
+                response.set_cookie('jwtToken', jwtToken)
                 return response
             else:
                 return render_template('Login.html', error="The password is incorrect")
@@ -52,6 +82,7 @@ def loginUser():
 
 
 @app.route("/goals", methods=['GET', 'POST'])
+@jwtValidate
 def displayAndAddGoals():
     username = request.cookies.get('userLoggedIn')
     user = searchForUserByEmail(username)
@@ -67,6 +98,7 @@ def displayAndAddGoals():
 
 
 @app.route("/deleteOrEditGoal", methods=['POST'])
+@jwtValidate
 def deleteOrEditGoal():
     username = request.cookies.get('userLoggedIn')
     user = searchForUserByEmail(username)
@@ -90,6 +122,7 @@ def deleteOrEditGoal():
 
 
 @app.route("/updateProjections", methods=['POST'])
+@jwtValidate
 def updateProjections():
     goalId = request.form['updateGoalProjection']
     yearProjection = request.form['yearProjection']
@@ -99,6 +132,7 @@ def updateProjections():
 
 
 @app.route("/markets", methods=['GET', 'POST'])
+@jwtValidate
 def viewMarkets():
     if request.method == 'GET':
         return render_template('Markets.html')
@@ -112,6 +146,7 @@ def viewMarkets():
 
 
 @app.route("/valuations", methods=['GET', 'POST'])
+@jwtValidate
 def viewValuations():
     username = request.cookies.get('userLoggedIn')
     user = searchForUserByEmail(username)
@@ -127,8 +162,8 @@ def viewValuations():
                         request.form['studentLoanLiability'], request.form['personalLoanLiability'],
                         request.form['carLoansLiability'],
                         request.form['otherDebtLiability'])
-        startBuildingCharts(user.id)
-        return render_template('Valuations.html', username=username, valuations=valuations, showGraphs = True)
+        startBuildingValuationsCharts(user.id)
+        return render_template('Valuations.html', username=username, valuations=valuations, showGraphs=True)
 
 
 if __name__ == '__main__':

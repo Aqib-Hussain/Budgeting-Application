@@ -38,40 +38,65 @@
         </div>
     </div>
 </nav>
+<div style="min-height:70vh; display:flex; flex-direction: column;">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path fill="#c7c7c7" fill-opacity="10"
+              d="M0,192L80,197.3C160,203,320,213,480,192C640,171,800,117,960,96C1120,75,1280,85,1360,90.7L1440,96L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path>
+    </svg>
 
-<div id="homepageInfo">
-    <h3 class="title is-3">Help Keep Your Finances on Track!</h3>
-    <p>Our budgeting app</p>
-</div>
-
-<!--Sign up Component-->
-<div style="height: 350px; " class="card signUpCard">
-    <h2 style="font-size: 20px; position:relative; margin-top:17px;"><strong>Sign up</strong></h2>
-    <div class="card-content">
-        <div class="content">
-            <div id="signUpFormComponent">
-                <div id="signUpLabels">
-                    <label>Email:</label>
-                    <label>Password:</label>
-                    <label>Confirm Password:</label>
+    <div style="position:fixed; left:30px; top:250px; width:60%;" class="card">
+        <div class="card-content">
+            <div class="content">
+                <div id="homepageInfo">
+                    <h3 class="title is-2">Help Keep Your Finances on Track.</h3>
+                    <p class="subtitle is-4">Having a hard time with your finances? Don't worry, our app is here to help!</p>
+                    <p class="title is-4" style="margin-top:20px; text-decoration: underline">Just Another Budgeting App's Features:</p>
+                    <ul style="text-align:left;">
+                        <li class="subtitle is-5">Set yourself goals to accomplish and predict your savings</li>
+                        <li class="subtitle is-5">View the progress of your stocks and analyse the trends of the market</li>
+                        <li class="subtitle is-5">Break down your assets and liabilities with our simple-to-use calculator and graphing tool</li>
+                    </ul>
                 </div>
-                <form action="{{ url_for('signUpUser') }}" method="post">
-                    <div id="signUpInputs">
-                        <input class="signUpField" type="email" required name="email"/>
-                        <input class="signUpField" type="password" required name="password"/>
-                        <input class="signUpField" type="password" required name="confirmPassword"/>
-                    </div>
-
             </div>
-            <button id="signUpButton" type="submit" class="button is-dark">Submit</button>
-            </form>
         </div>
-        <p id="errorResponse" style="color:red; font-size:15px;">{{ error }}</p>
     </div>
+
+    <!--Sign up Component-->
+    <div class="card signUpCard">
+        <h2 style="font-size: 20px; position:relative; margin-top:17px;"><strong>Sign up</strong></h2>
+        <div class="card-content">
+            <div class="content">
+                <div id="signUpFormComponent">
+                    <div id="signUpLabels">
+                        <label>Email:</label>
+                        <label>Password:</label>
+                        <label>Confirm Password:</label>
+                    </div>
+                    <form action="{{ url_for('signUpUser') }}" method="post">
+                        <div id="signUpInputs">
+                            <input class="signUpField" type="email" required name="email"/>
+                            <input class="signUpField" type="password" required name="password"/>
+                            <input class="signUpField" type="password" required name="confirmPassword"/>
+                        </div>
+
+                </div>
+                <button id="signUpButton" type="submit" class="button is-dark">Submit</button>
+                </form>
+            </div>
+            <p id="errorResponse" style="color:red; font-size:15px;">{{ error }}</p>
+        </div>
+    </div>
+
+    <svg style="position: fixed; bottom: 0; margin-bottom: 87px;" xmlns="http://www.w3.org/2000/svg"
+         viewBox="0 0 1440 320">
+        <path fill="#c7c7c7" fill-opacity="10"
+              d="M0,224L80,218.7C160,213,320,203,480,208C640,213,800,235,960,208C1120,181,1280,107,1360,69.3L1440,32L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
+    </svg>
+
 </div>
 
-<!-- footer -->
-<footer class="footer">
+<!--footer-->
+<footer style="position:fixed; display:flex; bottom:0; width:100%; height:7%; background-color:#353138;" class="footer">
     <div class="content has-text-left">
         <p>
             <strong class="has-text-white">JABA</strong>

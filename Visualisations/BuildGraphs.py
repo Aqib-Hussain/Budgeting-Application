@@ -4,7 +4,7 @@ import pandas as pd
 from DB.dbHelperMethods import searchForUserValuations
 
 
-def startBuildingCharts(userId):
+def startBuildingValuationsCharts(userId):
     valuation = searchForUserValuations(userId)
     df = pd.DataFrame({'AssetsOrLiability': ["Assets", "Liabilities"],
                        'Property Values': [valuation.propertyValuesAsset, 0.00],
@@ -32,11 +32,12 @@ def startBuildingCharts(userId):
 
 
 def buildBarChart(dataframe):
-    plt.figure(figsize=(17, 24))
+    plt.figure(figsize=(24, 24))
     sns.set(style='darkgrid')
     barPlot = dataframe.plot(kind='bar', stacked=True)
     barPlot.set_xticklabels(["Assets", "Liabilities"])
-    barPlot.legend(loc='center left', bbox_to_anchor=(1, 0))
+    barPlot.legend(loc='upper right', bbox_to_anchor=(1, 1))
+    plt.legend(fontsize='x-small')
     plt.xlabel('Assets & Liabilities')
     plt.ylabel('Value in £')
     plt.title("Personal Assets and Liabilities Breakdown by Bar Chart ")
@@ -58,9 +59,21 @@ def buildPieChart(assets, assetsLabels, liabilities, liabilitiesLabels):
     plt.close()
 
     plt.figure(figsize=(7, 7))
-    totalAssetsAndLiabilities = [sum(assets),sum(liabilities)]
-    plt.pie(totalAssetsAndLiabilities, labels=["Assets","Liabilities"],
+    totalAssetsAndLiabilities = [sum(assets), sum(liabilities)]
+    plt.pie(totalAssetsAndLiabilities, labels=["Assets", "Liabilities"],
             colors=sns.color_palette('muted'), autopct='%.0f%%')
     plt.title("Total Personal Assets & Liabilities  Breakdown by Pie Chart")
     plt.savefig('static/images/totalAssetAndLiabilitiesPieChartValuation.jpg', bbox_inches='tight', dpi=300)
+    plt.close()
+
+
+def buildApiCharts(date_periods, closing_prices, stockName, fromDate, toDate):
+    sns.set_style("darkgrid")
+    sns.lineplot(date_periods, closing_prices)
+    sns.set(rc={'figure.figsize': (40, 40)})
+    plt.xticks(rotation=45)
+    plt.xlabel('Date')
+    plt.ylabel('Closing Price')
+    plt.title(stockName + " Closing Prices from: " + fromDate + " to: " + toDate)
+    plt.savefig('static/images/stockClosingPriceGraph.jpg', bbox_inches='tight', dpi=300)
     plt.close()
