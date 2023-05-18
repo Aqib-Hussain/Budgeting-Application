@@ -2,7 +2,7 @@ import requests
 from datetime import datetime
 from Visualisations.BuildGraphs import buildApiCharts
 
-api_key = 'p512p655R35DNWNBbVOWenkDy2PBdAVx'
+api_key = ''
 
 
 def makeGraphForStock(stockName, fromDate, toDate):
